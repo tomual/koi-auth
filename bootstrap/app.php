@@ -1,5 +1,7 @@
 <?php
 
+use Respect\Validation\Validator as v;
+
 session_start();
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -44,11 +46,20 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+$container['validator'] = function ($container) {
+    return new App\Validation\Validator;
+};
+
 $container['HomeController'] = function ($container) {
     return new \App\Controllers\HomeController($container);
 };
 $container['AuthController'] = function ($container) {
     return new \App\Controllers\Auth\AuthController($container);
 };
+
+$app->add(new \App\Middleware\ValidationErrorsMiddleware($container));
+$app->add(new \App\Middleware\OldInputMiddleware($container));
+
+v::with('App\\Validation\\Rules\\');
 
 require __DIR__ . '/../app/routes.php';
