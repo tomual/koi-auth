@@ -26,6 +26,8 @@
                         <div class="invalid-feedback">{{ errors.password | first }}</div>
                     {% endif %}
                 </div>
+
+                {{ csrf.field | raw }}
                 <input type="submit" class="btn btn-primary" value="Sign Up">
             </form>
         </div>
