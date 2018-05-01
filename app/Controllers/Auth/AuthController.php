@@ -15,7 +15,16 @@ class AuthController extends Controller
 
     public function postSignIn($request, $response)
     {
+        $auth = $this->auth->attempt(
+            $request->getParam('email'),
+            $request->getParam('password')
+        );
 
+        if (!$auth) {
+            return $response->withRedirect($this->router->pathFor('auth.signin'));
+        }
+
+        return $response->withRedirect($this->router->pathFor('home'));
     }
 
     public function getSignUp($request, $response)
@@ -40,6 +49,8 @@ class AuthController extends Controller
             'username' => $request->getParam('username'),
             'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
         ]);
+        
+        $this->auth->attempt($request->getParam('email'), $request->getParam('password'));
 
         return $response->withRedirect($this->router->pathFor('home'));
     }
