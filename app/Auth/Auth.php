@@ -9,7 +9,11 @@ class Auth
 {
     public function user()
     {
-        return Koi::find($_SESSION['user']);
+        if($this->check()) {
+            return Koi::find($_SESSION['user']);
+        }
+
+        return;
     }
 
     public function check()
@@ -29,5 +33,10 @@ class Auth
             $_SESSION['user'] = $user->id;
             return true;
         }
+    }
+
+    public function logout()
+    {
+        unset($_SESSION['user']);
     }
 }

@@ -34,7 +34,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="#">Change Password</a>
-                            <a class="dropdown-item" href="#">Sign Out</a>
+                            <a class="dropdown-item" href="{{ path_for('auth.signout') }}">Sign Out</a>
                         </div>
                     </li>
                 {% else %}

@@ -21,8 +21,16 @@ class AuthController extends Controller
         );
 
         if (!$auth) {
+            $this->flash->addMessage('error', 'Invalid login.');
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
+
+        return $response->withRedirect($this->router->pathFor('home'));
+    }
+
+    public function getSignOut($request, $response)
+    {
+        $this->auth->logout();
 
         return $response->withRedirect($this->router->pathFor('home'));
     }
@@ -49,8 +57,10 @@ class AuthController extends Controller
             'username' => $request->getParam('username'),
             'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
         ]);
-        
+
         $this->auth->attempt($request->getParam('email'), $request->getParam('password'));
+
+        $this->flash->addMessage('info', 'You have successfully signed up!');
 
         return $response->withRedirect($this->router->pathFor('home'));
     }
