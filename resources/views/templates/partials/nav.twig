@@ -33,7 +33,7 @@
                             {{ auth.user.username }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Change Password</a>
+                            <a class="dropdown-item" href="{{ path_for('auth.password.change') }}">Change Password</a>
                             <a class="dropdown-item" href="{{ path_for('auth.signout') }}">Sign Out</a>
                         </div>
                     </li>

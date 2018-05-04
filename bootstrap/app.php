@@ -66,6 +66,10 @@ $container['AuthController'] = function ($container) {
     return new \App\Controllers\Auth\AuthController($container);
 };
 
+$container['PasswordController'] = function ($container) {
+    return new \App\Controllers\Auth\PasswordController($container);
+};
+
 $container['validator'] = function ($container) {
     return new App\Validation\Validator;
 };
