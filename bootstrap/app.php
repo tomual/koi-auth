@@ -18,6 +18,9 @@ $app = new \Slim\App([
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
+        ],
+        'jwt' => [
+            'secret' => 'test'
         ]
     ],
 ]);
@@ -84,8 +87,23 @@ $container['flash'] = function ($container) {
 
 $app->add(new \App\Middleware\ValidationErrorsMiddleware($container));
 $app->add(new \App\Middleware\OldInputMiddleware($container));
-$app->add(new \App\Middleware\CsrfViewMiddleware($container));
-$app->add($container->csrf);
+// $app->add(new \App\Middleware\CsrfViewMiddleware($container));
+// $app->add($container->csrf);
+$app->add(new \Tuupola\Middleware\JwtAuthentication([
+    "path" => "/api", /* or ["/api", "/admin"] */
+    "secret" => "test",
+    "algorithm" => ["HS256"],
+    "callback" => function ($request, $response, $arguments) use ($container) {
+        $container["jwt"] = $arguments["decoded"];
+    },
+    "error" => function ($request, $response, $arguments) {
+        $data["status"] = "error";
+        $data["message"] = $arguments["message"];
+        return $response
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    }
+]));
 
 v::with('App\\Validation\\Rules\\');
 
