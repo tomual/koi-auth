@@ -5,6 +5,9 @@ use App\Middleware\GuestMiddleware;
 use \Firebase\JWT\JWT;
 
 $app->get('/', 'HomeController:index')->setName('home');
+$app->get('/pond/list', 'PondController:getPonds')->setName('pond.list');
+$app->get('/pond/create', 'PondController:getCreatePond')->setName('pond.create');
+$app->post('/pond/create', 'PondController:postCreatePond');
 
 $app->group('', function () {
     $this->get('/auth/signup', 'AuthController:getSignUp')->setName('auth.signup');

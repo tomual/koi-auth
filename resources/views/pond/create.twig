@@ -1,0 +1,21 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <h1>Create Pond</h1>
+            <form action="{{ path_for('pond.create') }}" method="post">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" class="form-control {{ errors.name ? 'is-invalid' : '' }}" value="{{ old.name }}">
+                    {% if errors.name %}
+                        <div class="invalid-feedback">{{ errors.name | first }}</div>
+                    {% endif %}
+                </div>
+
+                <input type="submit" class="btn btn-primary" value="Create Pond">
+                <a href="{{ path_for('pond.list') }}" class="btn btn-link">Cancel</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

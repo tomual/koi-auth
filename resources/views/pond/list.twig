@@ -1,0 +1,20 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+    <h1>Pond List</h1>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>API Key</th>
+            <th>API Secret</th>
+        </tr>
+        {% for pond in ponds %}
+            <tr>
+                <td>{{ pond.name }}</td>
+                <td>{{ pond.api_key }}</td>
+                <td>{{ pond.api_secret }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ path_for('pond.create') }}" class="btn btn-primary">Create Pond</a>
+{% endblock %}
