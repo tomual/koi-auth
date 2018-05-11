@@ -10,8 +10,8 @@ $app->get('/pond/create', 'PondController:getCreatePond')->setName('pond.create'
 $app->post('/pond/create', 'PondController:postCreatePond');
 
 $app->group('', function () {
-    $this->get('/api', 'ApiController:index');
-    $this->post('/api', 'ApiController:index');
+    $this->post('/api/user/create', 'ApiController:signup');
+    $this->post('/api/user/login', 'ApiController:index');
 })->add(new ApiMiddleware($container));
 
 $app->group('', function () {
