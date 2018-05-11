@@ -11,7 +11,7 @@ $app->post('/pond/create', 'PondController:postCreatePond');
 
 $app->group('', function () {
     $this->post('/api/user/create', 'ApiController:signup');
-    $this->post('/api/user/login', 'ApiController:index');
+    $this->post('/api/user/login', 'ApiController:login');
 })->add(new ApiMiddleware($container));
 
 $app->group('', function () {

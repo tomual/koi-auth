@@ -32,4 +32,18 @@ class ApiController extends Controller
 
         return $response->withJson(['message' => $koi]);
     }
+
+    public function login($request, $response)
+    {
+        $auth = $this->auth->attempt(
+            $request->getParam('email'),
+            $request->getParam('password')
+        );
+
+        if (!$auth) {
+            return $response->withJson(['error' => true, 'message' => 'Invalid login.']);
+        }
+
+        return $response->withJson(['message' => $auth]);
+    }
 }
