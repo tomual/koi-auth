@@ -8,6 +8,7 @@ $app->get('/', 'HomeController:index')->setName('home');
 $app->get('/pond/list', 'PondController:getPonds')->setName('pond.list');
 $app->get('/pond/create', 'PondController:getCreatePond')->setName('pond.create');
 $app->post('/pond/create', 'PondController:postCreatePond');
+$app->post('/pond/regenerate', 'PondController:postRegenerateSecret')->setName('pond.regenerate');
 
 $app->group('', function () {
     $this->post('/api/user/create', 'ApiController:signup');

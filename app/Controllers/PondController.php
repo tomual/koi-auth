@@ -41,4 +41,23 @@ class PondController extends Controller
 
         return $response->withRedirect($this->router->pathFor('pond.list'));
     }
+
+    public function postRegenerateSecret($request, $response)
+    {
+        $validation = $this->validator->validate($request, [
+            'id' => v::notEmpty()
+        ]);
+
+        if($validation->failed()) {
+            return $response->withRedirect($this->router->pathFor('pond.list'));
+        }
+
+        $pond = Pond::find($request->getParam('id'));
+        $pond->api_secret = bin2hex(openssl_random_pseudo_bytes(16));
+        $pond->save();
+
+        $this->flash->addMessage('info', 'API secret has been regenerated.');
+
+        return $response->withRedirect($this->router->pathFor('pond.list'));
+    }
 }

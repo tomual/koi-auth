@@ -7,12 +7,15 @@
             <th>Name</th>
             <th>API Key</th>
             <th>API Secret</th>
+            <th></th>
         </tr>
         {% for pond in ponds %}
             <tr>
                 <td>{{ pond.name }}</td>
                 <td>{{ pond.api_key }}</td>
                 <td>{{ pond.api_secret }}</td>
+                <td>
+                    <form action="{{ path_for('pond.regenerate') }}" method="post"><input type="hidden" name="id" value="{{ pond.id }}"><input type="submit" value="Reset Secret" class="btn btn-outline-primary"></form></td>
             </tr>
         {% endfor %}
     </table>
