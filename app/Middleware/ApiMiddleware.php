@@ -3,9 +3,12 @@
 namespace App\Middleware;
 
 use App\Models\Pond;
+use App\Models\Log;
 
 class ApiMiddleware extends Middleware
 {
+    const LIMIT = 1000;
+
     public function __invoke($request, $response, $next)
     {
         $header = str_replace('Basic ', '', $request->getHeader("Authorization")[0]);
@@ -29,6 +32,16 @@ class ApiMiddleware extends Middleware
         if ($provided_signature != $valid_signature) {
             return $response->withJson(['error' => true, 'message' => 'Invalid signature.']);
         }
+
+        $usage = Log::where('pond_id', $pond->id)->whereRaw('Date(created_at) = CURDATE()')->get()->count();
+        if($usage > self::LIMIT) {
+            return $response->withJson(['error' => true, 'message' => 'Usage limit for API reached.']);
+        }
+
+        $log = new Log();
+        $log->pond_id = $pond->id;
+        $log->endpoint = $request->getUri()->getPath();
+        $log->save();
 
         $response = $next($request, $response);
         return $response;
