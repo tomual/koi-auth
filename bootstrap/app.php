@@ -33,8 +33,12 @@ $container['db'] = function ($container) use ($capsule) {
     return $capsule;
 };
 
+$container['koiAuth'] = function ($container) {
+    return new \App\Auth\KoiAuth;
+};
+
 $container['auth'] = function ($container) {
-    return new \App\Auth\Auth;
+    return new \App\Auth\GardenerAuth;
 };
 
 $container['view'] = function ($container) {

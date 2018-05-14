@@ -35,7 +35,7 @@ class ApiController extends Controller
 
     public function login($request, $response)
     {
-        $auth = $this->auth->attempt(
+        $auth = $this->koiAuth->attempt(
             $request->getParam('email'),
             $request->getParam('password')
         );
