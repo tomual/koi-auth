@@ -2,9 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\Koi;
 use App\Models\Pond;
-use App\Controllers\Controller;
 use Respect\Validation\Validator as v;
 
 class PondController extends Controller

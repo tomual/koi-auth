@@ -2,14 +2,14 @@
 
 namespace App\Auth;
 
-use App\Models\Koi;
+use App\Models\Gardener;
 
 class GardenerAuth
 {
     public function user()
     {
         if($this->check()) {
-            return Koi::find($_SESSION['user']);
+            return Gardener::find($_SESSION['user']);
         }
         return;
     }
@@ -21,7 +21,7 @@ class GardenerAuth
 
     public function attempt($email, $password)
     {
-        $user = Koi::where('email', $email)->first();
+        $user = Gardener::where('email', $email)->first();
 
         if (!$user) {
             return false;

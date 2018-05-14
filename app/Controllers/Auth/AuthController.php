@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Auth;
 
-use App\Models\Koi;
+use App\Models\Gardener;
 use App\Controllers\Controller;
 use Respect\Validation\Validator as v;
 
@@ -44,7 +44,7 @@ class AuthController extends Controller
     {
         $validation = $this->validator->validate($request, [
             'email' => v::noWhitespace()->notEmpty()->email()->emailAvailable(),
-            'username' => v::noWhitespace()->notEmpty()->alpha(),
+            'username' => v::noWhitespace()->notEmpty()->alnum(),
             'password' => v::noWhitespace()->notEmpty(),
         ]);
 
@@ -52,7 +52,7 @@ class AuthController extends Controller
             return $response->withRedirect($this->router->pathFor('auth.signup'));
         }
 
-        $koi = Koi::create([
+        $koi = Gardener::create([
             'email' => $request->getParam('email'),
             'username' => $request->getParam('username'),
             'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
