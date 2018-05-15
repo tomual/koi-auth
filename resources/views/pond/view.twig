@@ -1,0 +1,54 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+    {% if pond %}
+        <h1>{{ pond.name }}</h1>
+        <a href="{{ path_for('pond.list') }}">Back to my ponds</a>
+        <h2>API Keys</h2>
+        <table class="table">
+            <tr>
+                <td>API Key</td>
+                <td>{{ pond.api_key }}</td>
+            </tr>
+            <tr>
+                <td>API Secret</td>
+                <td>{{ pond.api_secret }} <form action="{{ path_for('pond.regenerate') }}" method="post" class="d-inline ml-3"><input type="hidden" name="id" value="{{ pond.id }}"><input type="submit" value="Reset Secret" class="btn btn-outline-primary btn-sm"></form></td>
+            </tr>
+        </table>
+
+
+        <h2>API Usage</h2>
+        <table class="table">
+            <tr>
+                <td>Today</td>
+                <td>{{ usage.day }}</td>
+            </tr>
+            <tr>
+                <td>This Month</td>
+                <td>{{ usage.month }}</td>
+            </tr>
+            <tr>
+                <td>All Time</td>
+                <td>{{ usage.total }}</td>
+            </tr>
+        </table>
+        <h2>Koi</h2>
+        <table class="table">
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Created</th>
+            </tr>
+            {% for koi in kois %}
+                <tr>
+                    <td>{{ koi.username }}</td>
+                    <td>{{ koi.email }}</td>
+                    <td>{{ koi.created_at|date("jS F, Y g:ia") }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h1>Pond not found</h1>
+        <a href="{{ path_for('pond.list') }}">Back to my ponds</a>
+    {% endif %}
+{% endblock %}

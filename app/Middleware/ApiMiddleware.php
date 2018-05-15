@@ -30,7 +30,7 @@ class ApiMiddleware extends Middleware
         $valid_signature = hash('md5', $pond->api_secret . date('Y-m-d'));
 
         if ($provided_signature != $valid_signature) {
-            return $response->withJson(['error' => true, 'message' => 'Invalid signature.']);
+            return $response->withJson(['error' => $valid_signature, 'message' => 'Invalid signature.']);
         }
 
         $usage = Log::where('pond_id', $pond->id)->whereRaw('Date(created_at) = CURDATE()')->get()->count();
@@ -42,6 +42,8 @@ class ApiMiddleware extends Middleware
         $log->pond_id = $pond->id;
         $log->endpoint = $request->getUri()->getPath();
         $log->save();
+
+        $_SESSION['pond_id'] = $pond->id;
 
         $response = $next($request, $response);
         return $response;

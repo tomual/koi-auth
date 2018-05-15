@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Koi extends Model
 {
     protected $fillable = [
+        'pond_id',
         'username',
         'email',
-        'password'
+        'password',
     ];
 
     public function setPassword($password)

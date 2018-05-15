@@ -25,6 +25,7 @@ class ApiController extends Controller
         }
 
         $koi = Koi::create([
+            'pond_id' => $_SESSION['pond_id'],
             'email' => $request->getParam('email'),
             'username' => $request->getParam('username'),
             'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
