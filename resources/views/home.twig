@@ -1,5 +1,24 @@
 {% extends 'templates/app.twig' %}
 
 {% block content %}
-    Hello
+    <p>Koi Auth is a free user authentication API. It is built for developers who want to quickly create small applicatons without having to build the authentication every time. Using this service, you can make simple POST calls to an endpoint to create or log in your app's users.</p>
+    <p>This service is built with PHP and uses password_hash's default algorithm (bcrypt) to store passwords.</p>
+
+    <h2>Example: Creating User</h2>
+    <p>For each pond you choose to create, you will receive an API key and an API secret. With these you will create a signature string (instructions inside), and send them as part of the header.</p>
+    <pre>coco.lat/koi-auth/public/api/user/create HTTP/1.1
+Authorization: Basic MGNiYzY2MTFmNTU0MGJkMDgwOWEzODhkYzk1YTYxNWI6YjNjOTQzOThkZWZkZTQ1MzkxYWU0M2NhZmY0ZDdkMGQ=</pre>
+    <p>You will receive, for both user login and user creation, the full user object in JSON.</p>
+    <pre>{
+    "message": {
+        "pond_id": 1,
+        "email": "tomual2@naver.com",
+        "username": "tomtom",
+        "password": "$2y$10$4Y5xnsF6c3ElRlc0NQ2gtecHLTNrPt74vvQfGHU6BprCAyf3P3vve",
+        "updated_at": "2018-05-15 20:35:42",
+        "created_at": "2018-05-15 20:35:42",
+        "id": 12
+    }
+}</pre>
+    <a href="{{ path_for('auth.signup') }}">Get Started</a>
 {% endblock %}

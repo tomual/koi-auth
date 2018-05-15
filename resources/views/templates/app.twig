@@ -3,16 +3,28 @@
 <head>
     <title>koi-auth</title>
     <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{  base_url()  }}/css/app.css">
+    <link rel="stylesheet" href="{{ base_url() }}/css/app.css">
 </head>
 <body>
-{% include 'templates/partials/nav.twig' %}
-
 <div class="container">
-    {% include 'templates/partials/flash.twig' %}
-    {% block content %}{% endblock %}
+    <div class="left-page">
+        <span class="date">
+            {% if auth.check %}
+                Welcome, <a href="{{ path_for('pond.list') }}">{{ auth.user.username }}</a>
+            {% endif %}
+        </span>
+        <span class="cat">Authentication Service</span>
+        <h1 class="title"><a href="{{ path_for('home') }}">Koi <span>Auth</span></a></h1>
+        <span class="author">
+        {% include 'templates/partials/nav.twig' %}</span>
+    </div>
+    <div class="right-page">
+        {% include 'templates/partials/flash.twig' %}
+        {% block content %}{% endblock %}
+    </div>
 </div>
+
+
 </body>
 </html>
