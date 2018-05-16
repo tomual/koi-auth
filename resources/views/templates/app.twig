@@ -11,11 +11,11 @@
     <div class="left-page">
         <span class="date">
             {% if auth.check %}
-                Welcome, <a href="{{ path_for('pond.list') }}">{{ auth.user.username }}</a>
+                Welcome, <a class="inherit" href="{{ path_for('pond.list') }}">{{ auth.user.username }}</a>
             {% endif %}
         </span>
         <span class="cat">Authentication Service</span>
-        <h1 class="title"><a href="{{ path_for('home') }}">Koi <span>Auth</span></a></h1>
+        <h1 class="title"><a class="inherit" href="{{ path_for('home') }}">Koi <span>Auth</span></a></h1>
         <span class="author">
         {% include 'templates/partials/nav.twig' %}</span>
     </div>

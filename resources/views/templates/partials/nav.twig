@@ -1,8 +1,8 @@
 {% if auth.check %}
-    <a href="{{ path_for('auth.password.change') }}">Change Password</a> &middot;
-    <a href="{{ path_for('pond.list') }}">My Ponds</a> &middot;
-    <a href="{{ path_for('auth.signout') }}">Sign Out</a>
+    <a class="inherit" href="{{ path_for('auth.password.change') }}">Change Password</a> &middot;
+    <a class="inherit" href="{{ path_for('pond.list') }}">My Ponds</a> &middot;
+    <a class="inherit" href="{{ path_for('auth.signout') }}">Sign Out</a>
 {% else %}
-    <a href="{{ path_for('auth.signup') }}">Sign Up</a> &middot;
-    <a href="{{ path_for('auth.signin') }}">Sign In</a>
+    <a class="inherit" href="{{ path_for('auth.signup') }}">Sign Up</a> &middot;
+    <a class="inherit" href="{{ path_for('auth.signin') }}">Sign In</a>
 {% endif %}

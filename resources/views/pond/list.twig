@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Pond List</h1>
-    <table class="table">
+    <table class="table" cellspacing="0" border="1">
         <tr>
             <th>Name</th>
             <th>Kois</th>
@@ -17,6 +17,49 @@
                 <td>{{ pond.api_secret }}</td>
             </tr>
         {% endfor %}
+        {% if ponds is empty %}
+            <tr>
+                <td colspan="4">You do not have any ponds.</td>
+            </tr>
+        {% endif %}
     </table>
     <a href="{{ path_for('pond.create') }}" class="btn btn-primary">Create Pond</a>
+    <br><br>
+    <h1>Instructions</h1>
+    <p>For each request, the server will check the authorization header to make sure it is a valid request. The following is what is to make up the authorization header:</p>
+    <ol>
+        <li>Create a string made up of the secret and today's date in Y-m-d format
+            <br>e.g. <pre>2447df744f0a857f929da443bfb7a0e82018-05-10</pre>
+        </li>
+        <li>Hash the string using MD5
+            <br>e.g. <pre>b3c94398defde45391ae43caff4d7d0d</pre>
+        </li>
+        <li>Prepend to that the API key with a colon
+            <br>e.g. <pre>0cbc6611f5540bd0809a388dc95a615b:b3c94398defde45391ae43caff4d7d0d</pre>
+        </li>
+        <li>Base 64 encode the string
+            <br>e.g. <pre>MGNiYzY2MTFmNTU0MGJkMDgwOWEzODhkYzk1YTYxNWI6YjNjOTQ[...]</pre>
+        </li>
+        <li>Add the word "Basic " to the beginning
+            <br>e.g. <pre>Basic MGNiYzY2MTFmNTU0MGJkMDgwOWEzODhkYzk1YTYxNWI6YjNjOTQzOThkZWZkZTQ[...]</pre>
+        </li>
+        <li>Set that as the HTTP request's authorization header</li>
+    </ol>
+    <h1>Available Endpoints</h1>
+    <ul>
+        <li><pre>http://coco.lat/koi-auth/public/api/user/create</pre> for creating users
+            <br>The body of the request should contain:
+            <ul>
+                <li><b>email</b></li>
+                <li><b>username</b></li>
+                <li><b>password</b></li>
+            </ul>
+        </li>
+        <li><pre>http://coco.lat/koi-auth/public/api/user/login</pre> for logging in users
+            <br>The body of the request should contain:
+            <ul>
+                <li><b>email</b></li>
+                <li><b>password</b></li>
+            </ul></li>
+    </ul>
 {% endblock %}

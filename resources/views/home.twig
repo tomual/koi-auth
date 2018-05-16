@@ -7,7 +7,7 @@
     <h2>Example: Creating User</h2>
     <p>For each pond you choose to create, you will receive an API key and an API secret. With these you will create a signature string (instructions inside), and send them as part of the header.</p>
     <pre>coco.lat/koi-auth/public/api/user/create HTTP/1.1
-Authorization: Basic MGNiYzY2MTFmNTU0MGJkMDgwOWEzODhkYzk1YTYxNWI6YjNjOTQzOThkZWZkZTQ1MzkxYWU0M2NhZmY0ZDdkMGQ=</pre>
+Authorization: Basic MGNiYzY2MTFmNTU0MGJkMDgwOWEzODhkYzk1YTYx</pre>
     <p>You will receive, for both user login and user creation, the full user object in JSON.</p>
     <pre>{
     "message": {
@@ -20,5 +20,5 @@ Authorization: Basic MGNiYzY2MTFmNTU0MGJkMDgwOWEzODhkYzk1YTYxNWI6YjNjOTQzOThkZWZ
         "id": 12
     }
 }</pre>
-    <a href="{{ path_for('auth.signup') }}">Get Started</a>
+    <a class="btn btn-primary big" href="{{ path_for('auth.signup') }}">Get Started</a>
 {% endblock %}
