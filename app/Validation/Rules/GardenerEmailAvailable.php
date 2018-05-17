@@ -6,7 +6,7 @@ namespace App\Validation\Rules;
 use App\Models\Gardener;
 use Respect\Validation\Rules\AbstractRule;
 
-class EmailAvailable extends AbstractRule
+class GardenerEmailAvailable extends AbstractRule
 {
     public function validate($input)
     {
