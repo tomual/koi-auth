@@ -15,8 +15,8 @@ class ApiController extends Controller
     public function signup($request, $response)
     {
         $validation = $this->validator->validate($request, [
-            'email' => v::noWhitespace()->notEmpty()->email()->emailAvailable(),
-            'username' => v::noWhitespace()->notEmpty()->alpha(),
+            'email' => v::noWhitespace()->notEmpty()->email()->koiEmailAvailable(),
+            'username' => v::noWhitespace()->notEmpty()->alpha()->koiUsernameAvailable(),
             'password' => v::noWhitespace()->notEmpty(),
         ]);
 
