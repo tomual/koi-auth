@@ -44,8 +44,8 @@ class AuthController extends Controller
     {
         $validation = $this->validator->validate($request, [
             'email' => v::noWhitespace()->notEmpty()->email()->gardenerEmailAvailable(),
-            'username' => v::noWhitespace()->notEmpty()->alnum()->gardenerUsernameAvailable(),
-            'password' => v::noWhitespace()->notEmpty(),
+            'username' => v::noWhitespace()->notEmpty()->alnum('_')->koiUsernameAvailable(),
+            'password' => v::noWhitespace()->notEmpty()->length(6),
         ]);
 
         if($validation->failed()) {

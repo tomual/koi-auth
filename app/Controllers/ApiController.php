@@ -16,8 +16,8 @@ class ApiController extends Controller
     {
         $validation = $this->validator->validate($request, [
             'email' => v::noWhitespace()->notEmpty()->email()->koiEmailAvailable(),
-            'username' => v::noWhitespace()->notEmpty()->alpha()->koiUsernameAvailable(),
-            'password' => v::noWhitespace()->notEmpty(),
+            'username' => v::noWhitespace()->notEmpty()->alnum('_')->koiUsernameAvailable(),
+            'password' => v::noWhitespace()->notEmpty()->length(6),
         ]);
 
         if($validation->failed()) {
@@ -30,6 +30,8 @@ class ApiController extends Controller
             'username' => $request->getParam('username'),
             'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
         ]);
+
+        unset($koi->password);
 
         return $response->withJson(['message' => $koi]);
     }
@@ -44,6 +46,8 @@ class ApiController extends Controller
         if (!$auth) {
             return $response->withJson(['error' => true, 'message' => 'Invalid login.']);
         }
+        
+        unset($auth->password);
 
         return $response->withJson(['message' => $auth]);
     }
