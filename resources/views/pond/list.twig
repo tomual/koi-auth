@@ -29,22 +29,47 @@
     <p>For each request, the server will check the authorization header to make sure it is a valid request. The following is what is to make up the authorization header:</p>
     <ol>
         <li>Create a string made up of the secret and today's date in Y-m-d format
-            <br>e.g. <pre>2447df744f0a857f929da443bfb7a0e82018-05-10</pre>
+            <pre>2447df744f0a857f929da443bfb7a0e82018-05-10</pre>
         </li>
         <li>Hash the string using MD5
-            <br>e.g. <pre>b3c94398defde45391ae43caff4d7d0d</pre>
+            <pre>b3c94398defde45391ae43caff4d7d0d</pre>
         </li>
-        <li>Prepend to that the API key with a colon
-            <br>e.g. <pre>0cbc6611f5540bd0809a388dc95a615b:b3c94398defde45391ae43caff4d7d0d</pre>
+        <li>Append to the API key with a colon
+            <pre>0cbc6611f5540bd0809a388dc95a615b:b3c94398defde45391ae43caff4d7d0d</pre>
         </li>
         <li>Base 64 encode the string
-            <br>e.g. <pre>MGNiYzY2MTFmNTU0MGJkMDgwOWEzODhkYzk1YTYxNWI6YjNjOTQ[...]</pre>
+            <pre>MGNiYzY2MTFmNTU0MGJkMDgwOWEzODhkYzk1YTYxNWI6YjNjOTQ[...]</pre>
         </li>
         <li>Add the word "Basic " to the beginning
-            <br>e.g. <pre>Basic MGNiYzY2MTFmNTU0MGJkMDgwOWEzODhkYzk1YTYxNWI6YjNjOTQzOThkZWZkZTQ[...]</pre>
+            <pre>Basic MGNiYzY2MTFmNTU0MGJkMDgwOWEzODhkYzk1YTYxNWI6YjNjOTQzOThkZWZkZTQ[...]</pre>
         </li>
         <li>Set that as the HTTP request's authorization header</li>
     </ol>
+    <p>PHP Example: </p>
+    <pre>
+$key = '5f383930bac287f7d5cf60a098190161';
+$secret = '770da59cb8371a46e5f49a884cc927a2';
+$hash = md5($secret . date('Y-m-d'));
+$usrpwd = $key . ':' . $hash;
+$token = 'Basic ' . base64_encode($usrpwd);
+
+$data = [
+    'email' => 'katekat@mail.com',
+    'username' => 'kate64',
+    'password' => 'qwerty',
+];
+
+$url = 'http://coco.lat/koi-auth/public/api/user/create';
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL,$url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+curl_setopt($ch, CURLOPT_POST,true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: ' . $token));
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+$result = curl_exec($ch);
+curl_close($ch);  
+echo($result);
+    </pre>
     <h1>Available Endpoints</h1>
     <ul>
         <li><pre>http://coco.lat/koi-auth/public/api/user/create</pre> for creating users
