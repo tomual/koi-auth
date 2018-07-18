@@ -10,6 +10,6 @@ class KoiEmailAvailable extends AbstractRule
 {
     public function validate($input)
     {
-        return Koi::where('email', $input)->count() === 0;
+        return Koi::where('email', $input)->where('pond_id', $_SESSION['pond_id'])->count() === 0;
     }
 }

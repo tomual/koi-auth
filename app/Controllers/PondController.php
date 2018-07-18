@@ -14,7 +14,7 @@ class PondController extends Controller
         if($args['id']) {
             $pond = Pond::find($args['id']);
             if($pond) {
-                $kois = Koi::where('pond_id', $pond->id)->get();
+                $kois = Koi::where('pond_id', $pond->id)->orderBy('created_at', 'DESC')->get();
                 $usage = [
                     'day' => Log::where('pond_id', $pond->id)->whereBetween('created_at', [date('Y-m-d', strtotime('today')), date('Y-m-d', strtotime('tomorrow'))])->get()->count(),
                     'month' => Log::where('pond_id', $pond->id)->whereBetween('created_at', [date('Y-m-01', strtotime('today')), date('Y-m-d', strtotime('tomorrow'))])->get()->count(),
